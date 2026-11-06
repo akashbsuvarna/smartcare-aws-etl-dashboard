@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SmartCare Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+body { font-family: Arial; background: #f4f6f8; text-align: center; }
+h1 { color: #1a73e8; }
+.box { background: white; width: 80%; margin: 20px auto; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px #ccc; }
+.card { display: inline-block; background: #1a73e8; color: white; padding: 15px 30px; margin: 10px; border-radius: 10px; font-size: 20px; }
+</style>
+</head>
+<body>
+
+<h1>🏥 SmartCare - Hospital Dashboard</h1>
+<p>AWS S3 + Glue + Athena | No QuickSight</p>
+
+<div>
+<div class="card">Total Patients: 500</div>
+<div class="card">Total Fees: ₹ 2,50,000</div>
+<div class="card">Departments: 5</div>
+</div>
+
+<div class="box">
+<h2>Visits by Department</h2>
+<canvas id="deptChart"></canvas>
+</div>
+
+<div class="box">
+<h2>Patients by Gender</h2>
+<canvas id="genderChart"></canvas>
+</div>
+
+<script>
+// --- CHANGE THESE NUMBERS WITH YOUR ATHENA RESULT ---
+// Visits by Department - From Athena Query 1
+const deptLabels = ['Cardiology', 'Neurology', 'Ortho', 'Pediatrics', 'General'];
+const deptData = [120, 90, 110, 80, 100];
+
+// Patients by Gender - From Athena Query 2
+const genderLabels = ['Male', 'Female', 'UNKNOWN'];
+const genderData = [260, 220, 20];
+
+new Chart(document.getElementById('deptChart'), {
+  type: 'bar',
+  data: { labels: deptLabels, datasets: [{ label: 'Visits', data: deptData, backgroundColor: '#1a73e8' }] }
+});
+
+new Chart(document.getElementById('genderChart'), {
+  type: 'pie',
+  data: { labels: genderLabels, datasets: [{ data: genderData, backgroundColor: ['#1a73e8','#ff6384','#ffce56'] }] }
+});
+</script>
+
+</body>
+</html>
